@@ -112,6 +112,10 @@ if __name__ == "__main__":
     llm = loader.load_llm()
     print(f"LLM Loaded: {llm}")
     
+    # Test the embedding model
+    results=embeddings.embed_query("Hello, how are you")
+    print(f"the embedding results is: {results}")
+
     # Test the ModelLoader
     result=llm.invoke("Hello, how are you?")
     print(f"LLM Result: {result.content}")
