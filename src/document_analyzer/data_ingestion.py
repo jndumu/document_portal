@@ -69,7 +69,7 @@ if __name__ == "__main__":
     from pathlib import Path
     from io import BytesIO
     
-    pdf_path=r"C:\Users\Dell\Desktop\document_portal\notebook\data\RAG_with_knowledge_intensive_task.pdf"
+    pdf_path=r"C:\Users\Dell\Desktop\document_portal\data\document_analysis\test_session\sample.pdf"
     class DummnyFile:
         def __init__(self,file_path):
             self.name = Path(file_path).name
