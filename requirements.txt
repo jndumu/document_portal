@@ -9,4 +9,5 @@ faiss-cpu
 structlog
 structlog
 PyMuPDF
+
 -e .
