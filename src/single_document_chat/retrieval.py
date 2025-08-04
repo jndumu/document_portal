@@ -1,10 +1,10 @@
 import sys
 import os
 import streamlit as st
-from dotenv import load_dotenv
+from dotenv import load_dotenv #type: ignore
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain_community.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS #type: ignore
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
@@ -14,7 +14,7 @@ from logger.custom_logger import CustomLogger
 from prompt.prompt_library import PROMPT_REGISTRY
 from model.models import PromptType
 
-load_dotenv()
+load_dotenv() #type: ignore
 
 class ConversationalRAG:
     def __init__(self, session_id: str, retriever):
@@ -72,19 +72,19 @@ class ConversationalRAG:
             self.log.error("Failed to access session history", session_id=session_id, error=str(e))
             raise DocumentPortalException("Failed to retrieve session history", sys)
 
-    def load_retriever_from_faiss(self, index_path: str):
+    def load_retriever_from_faiss(self, index_path: str): #type: ignore
         try:
             embeddings = ModelLoader().load_embeddings()
             if not os.path.isdir(index_path):
-                raise FileNotFoundError(f"FAISS index directory not found: {index_path}")
+                raise FileNotFoundError(f"FAISS index directory not found: {index_path}") #type: ignore
 
-            vectorstore = FAISS.load_local(index_path, embeddings)
-            self.log.info("Loaded retriever from FAISS index", index_path=index_path)
-            return vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 5})
+            vectorstore = FAISS.load_local(index_path, embeddings) #type: ignore
+            self.log.info("Loaded retriever from FAISS index", index_path=index_path) #type: ignore
+            return vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 5}) #type: ignore
 
         except Exception as e:
-            self.log.error("Failed to load retriever from FAISS", error=str(e))
-            raise DocumentPortalException("Error loading retriever from FAISS", sys)
+            self.log.error("Failed to load retriever from FAISS", error=str(e)) #type: ignore
+            raise DocumentPortalException("Error loading retriever from FAISS", sys) #type: ignore
         
     def invoke(self, user_input: str) -> str:
         try:

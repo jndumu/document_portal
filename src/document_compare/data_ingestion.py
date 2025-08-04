@@ -1,7 +1,7 @@
 import sys
 import uuid
 from pathlib import Path
-import fitz
+import fitz #typ: ignore
 from datetime import datetime, timezone
 from logger.custom_logger import CustomLogger
 from exception.custom_exception import DocumentPortalException
@@ -33,10 +33,10 @@ class DocumentIngestion:
                 raise ValueError("Only PDF files are allowed.")
 
             with open(ref_path, "wb") as f:
-                f.write(reference_file.getbuffer())
+                f.write(reference_file.getbuffer()) #type: ignore
 
             with open(act_path, "wb") as f:
-                f.write(actual_file.getbuffer())
+                f.write(actual_file.getbuffer()) #type: ignore
 
             self.log.info("Files saved", reference=str(ref_path), actual=str(act_path), session=self.session_id)
             return ref_path, act_path
@@ -50,7 +50,7 @@ class DocumentIngestion:
         Read text content of a PDF page-by-page.
         """
         try:
-            with fitz.open(pdf_path) as doc:
+            with fitz.open(pdf_path) as doc: #type: ignore
                 if doc.is_encrypted:
                     raise ValueError(f"PDF is encrypted: {pdf_path.name}")
 

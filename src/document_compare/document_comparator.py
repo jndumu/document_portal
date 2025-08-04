@@ -1,5 +1,5 @@
 import sys
-from dotenv import load_dotenv
+from dotenv import load_dotenv #type: ignore
 import pandas as pd
 from langchain_core.output_parsers import JsonOutputParser
 from langchain.output_parsers import OutputFixingParser
@@ -11,7 +11,7 @@ from model.models import SummaryResponse,PromptType
 
 class DocumentComparatorLLM:
     def __init__(self):
-        load_dotenv()
+        load_dotenv() # type: ignore
         self.log = CustomLogger().get_logger(__name__)
         self.loader = ModelLoader()
         self.llm = self.loader.load_llm()
