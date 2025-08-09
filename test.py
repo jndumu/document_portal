@@ -61,8 +61,8 @@
 
 # # ---- Step 1: Save and combine PDFs ---- #
 # def test_compare_documents():
-#     ref_path = Path("C:\\Complete_Content2\\llmops_batch\\document_portal\\data\\document_compare\\Long_Report_V1.pdf")
-#     act_path = Path("C:\\Complete_Content2\\llmops_batch\\document_portal\\data\\document_compare\\Long_Report_V2.pdf")
+#     ref_path = Path("C:\\Users\\Dell\\Desktop\\document_portal\\data\\document_compare\\Long_Report_V1.pdf")
+#     act_path = Path("C:\\Users\\Dell\\Desktop\\document_portal\\data\\document_compare\\Long_Report_V2.pdf")
 
 #     # Wrap them like Streamlit UploadedFile-style
 #     class FakeUpload:
