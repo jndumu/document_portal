@@ -1,5 +1,5 @@
 import os
-import fitz
+import fitz #type: ignore
 import sys
 import uuid
 from datetime import datetime
@@ -42,7 +42,7 @@ class DocumentHandler:
             save_path = os.path.join(self.session_path, filename)
             
             with open(save_path, "wb") as f:
-                f.write(uploaded_file.getbuffer())
+                f.write(uploaded_file.getbuffer()) #type: ignore
 
             self.log.info("PDF saved successfully", file=filename, save_path=save_path, session_id=self.session_id)
             
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     from pathlib import Path
     from io import BytesIO
     
-    pdf_path=r"C:\\Users\\sunny\\document_portal\\data\\document_analysis\\sample.pdf"
+    pdf_path=r"C:\\Users\\Dell\\Desktop\\document_portal\\data\document_analysis\\sample.pdf"
     class DummnyFile:
         def __init__(self,file_path):
             self.name = Path(file_path).name
@@ -78,7 +78,7 @@ if __name__ == "__main__":
         def getbuffer(self):
             return open(self._file_path, "rb").read()
         
-    dummy_pdf = DummnyFile(pdf_path)
+    dummy_pdf = DummnyFile(pdf_path) #type: ignore
     
     handler = DocumentHandler()
     
