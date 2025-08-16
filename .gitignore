@@ -5,4 +5,5 @@ venv/
 __pycache__/
 logs/
 *.pyc
-#test.py
+faiss_index/
+main_archive/

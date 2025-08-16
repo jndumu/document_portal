@@ -6,7 +6,7 @@
 # from src.document_analyzer.data_analysis import DocumentAnalyzer  # Your DocumentAnalyzer class
 
 # # Path to the PDF you want to test
-# PDF_PATH = r"C:\\Users\\sunny\\document_portal\\data\\document_analysis\\sample.pdf"
+# PDF_PATH = r"C:\Users\Dell\Desktop\document_portal\data\document_analysis\sample.pdf"
 
 # # Dummy file wrapper to simulate uploaded file (Streamlit style)
 # class DummyFile:
@@ -61,8 +61,8 @@
 
 # # ---- Step 1: Save and combine PDFs ---- #
 # def test_compare_documents():
-#     ref_path = Path("C:\\Complete_Content2\\llmops_batch\\document_portal\\data\\document_compare\\Long_Report_V1.pdf")
-#     act_path = Path("C:\\Complete_Content2\\llmops_batch\\document_portal\\data\\document_compare\\Long_Report_V2.pdf")
+#     ref_path = Path("C:\Users\Dell\Desktop\document_portal\data\document_compare\Long_Report_V1.pdf")
+#     act_path = Path("C:\Users\Dell\Desktop\document_portal\data\document_compare\Long_Report_V2.pdf")
 
 #     # Wrap them like Streamlit UploadedFile-style
 #     class FakeUpload:
@@ -152,8 +152,10 @@
 ## testing for multidoc chat
 import sys
 from pathlib import Path
-from src.multi_document_chat.data_ingestion import DocumentIngestor
-from src.multi_document_chat.retrieval import ConversationalRAG
+#from src.multi_document_chat.data_ingestion import DocumentIngestor
+#from src.multi_document_chat.retrieval import ConversationalRAG
+from archive.src.multi_document_chat.data_ingestion import DocumentIngestor
+from archive.src.multi_document_chat.retrieval import ConversationalRAG
 
 def test_document_ingestion_and_rag():
     try:
