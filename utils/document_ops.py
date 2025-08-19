@@ -45,11 +45,11 @@ def concat_for_comparison(ref_docs: List[Document], act_docs: List[Document]) ->
 
 # ---------- Helpers ----------
 class FastAPIFileAdapter:
-    """Adapt FastAPI UploadFile -> .name + .getbuffer() API"""
+    """Adapt FastAPI UploadFile -> .name + .getbuffer() API""" # type: ignore
     def __init__(self, uf: UploadFile):
         self._uf = uf
         self.name = uf.filename
-    def getbuffer(self) -> bytes:
+    def getbuffer(self) -> bytes: # type: ignore
         self._uf.file.seek(0)
         return self._uf.file.read()
 
