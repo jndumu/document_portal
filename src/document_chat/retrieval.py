@@ -6,7 +6,7 @@ from typing import List, Optional, Dict, Any
 from langchain_core.messages import BaseMessage
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_community.vectorstores import FAISS # type: ignore
+from langchain_community.vectorstores import FAISS
 
 from utils.model_loader import ModelLoader
 from exception.custom_exception import DocumentPortalException
@@ -17,11 +17,11 @@ from model.models import PromptType
 
 class ConversationalRAG:
     """
-    LCEL-based Conversational RAG with lazy retriever initialization. #type: ignore
+    LCEL-based Conversational RAG with lazy retriever initialization.
 
     Usage:
         rag = ConversationalRAG(session_id="abc")
-        rag.load_retriever_from_faiss(index_path="faiss_index/abc", k=5, index_name="index") #type: ignore
+        rag.load_retriever_from_faiss(index_path="faiss_index/abc", k=5, index_name="index")
         answer = rag.invoke("What is ...?", chat_history=[])
     """
 
@@ -42,7 +42,7 @@ class ConversationalRAG:
             self.retriever = retriever
             self.chain = None
             if self.retriever is not None:
-                self._build_lcel_chain() #type: ignore
+                self._build_lcel_chain()
 
             log.info("ConversationalRAG initialized", session_id=self.session_id)
         except Exception as e:
@@ -51,7 +51,7 @@ class ConversationalRAG:
 
     # ---------- Public API ----------
 
-    def load_retriever_from_faiss( #type: ignore
+    def load_retriever_from_faiss(
         self,
         index_path: str,
         k: int = 5,
@@ -60,11 +60,11 @@ class ConversationalRAG:
         search_kwargs: Optional[Dict[str, Any]] = None,
     ):
         """
-        Load FAISS vectorstore from disk and build retriever + LCEL chain. #type: ignore
+        Load FAISS vectorstore from disk and build retriever + LCEL chain.
         """
         try:
             if not os.path.isdir(index_path):
-                raise FileNotFoundError(f"FAISS index directory not found: {index_path}") #type: ignore
+                raise FileNotFoundError(f"FAISS index directory not found: {index_path}")
 
             embeddings = ModelLoader().load_embeddings()
             vectorstore = FAISS.load_local(
@@ -77,13 +77,13 @@ class ConversationalRAG:
             if search_kwargs is None:
                 search_kwargs = {"k": k}
 
-            self.retriever = vectorstore.as_retriever( #type: ignore
+            self.retriever = vectorstore.as_retriever(
                 search_type=search_type, search_kwargs=search_kwargs
             )
-            self._build_lcel_chain() #type: ignore
+            self._build_lcel_chain()
 
             log.info(
-                "FAISS retriever loaded successfully", #type: ignore
+                "FAISS retriever loaded successfully",
                 index_path=index_path,
                 index_name=index_name,
                 k=k,
@@ -92,15 +92,15 @@ class ConversationalRAG:
             return self.retriever
 
         except Exception as e:
-            log.error("Failed to load retriever from FAISS", error=str(e)) #type: ignore
+            log.error("Failed to load retriever from FAISS", error=str(e))
             raise DocumentPortalException("Loading error in ConversationalRAG", sys)
 
     def invoke(self, user_input: str, chat_history: Optional[List[BaseMessage]] = None) -> str:
-        """Invoke the LCEL pipeline.""" #type: ignore
+        """Invoke the LCEL pipeline."""
         try:
             if self.chain is None:
                 raise DocumentPortalException(
-                    "RAG chain not initialized. Call load_retriever_from_faiss() before invoke().", sys #type: ignore
+                    "RAG chain not initialized. Call load_retriever_from_faiss() before invoke().", sys
                 )
             chat_history = chat_history or []
             payload = {"input": user_input, "chat_history": chat_history}
@@ -138,7 +138,7 @@ class ConversationalRAG:
     def _format_docs(docs) -> str:
         return "\n\n".join(getattr(d, "page_content", str(d)) for d in docs)
 
-    def _build_lcel_chain(self): #type: ignore
+    def _build_lcel_chain(self):
         try:
             if self.retriever is None:
                 raise DocumentPortalException("No retriever set before building chain", sys)
@@ -166,7 +166,7 @@ class ConversationalRAG:
                 | StrOutputParser()
             )
 
-            log.info("LCEL graph built successfully", session_id=self.session_id) #type: ignore
+            log.info("LCEL graph built successfully", session_id=self.session_id)
         except Exception as e:
-            log.error("Failed to build LCEL chain", error=str(e), session_id=self.session_id) #type: ignore
-            raise DocumentPortalException("Failed to build LCEL chain", sys) #type: ignore
+            log.error("Failed to build LCEL chain", error=str(e), session_id=self.session_id)
+            raise DocumentPortalException("Failed to build LCEL chain", sys)
